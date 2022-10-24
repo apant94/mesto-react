@@ -1,19 +1,21 @@
-function Main() {
+import React from 'react';
+
+function Main(props) {
   return(  
     <main className="main">
       <section className="profile">
         <div className="profile__avatar-wrapper">
           <div className="profile__avatar"></div>
-          <div className="profile__edit-avatar"></div> 
+          <div className="profile__edit-avatar" onClick={props.onEditAvatar}></div> 
         </div> 
         <div className="profile__info">
           <div className="profile__first-line">
             <h1 className="profile__name">Жак-Ив Кусто</h1>
-            <button type="button" className="profile__edit"></button>
+            <button type="button" className="profile__edit" onClick={props.onEditProfile}></button>
           </div>
           <p className="profile__job"></p>
         </div>
-        <button type="button" className="profile__add"></button>
+        <button type="button" className="profile__add" onClick={props.onAddPlace}></button>
       </section>
       <section className="elements">
         <ul className="elements__list">
@@ -33,7 +35,7 @@ function Main() {
         </ul>
       </section>
     </main>
-  )
+  );
 }
 
 export default Main;
