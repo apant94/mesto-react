@@ -1,5 +1,6 @@
 import React from 'react';
 import api from '../utils/api';
+import Card from './Card';
 
 function Main(props) {
   const [userName, setUserName] = React.useState('');
@@ -17,7 +18,7 @@ function Main(props) {
     .catch((err) => {
       console.log(err);
     })
-  });
+  }, []);
 
   React.useEffect(() => {
     api.getCards()
@@ -27,7 +28,7 @@ function Main(props) {
     .catch((err) => {
       console.log(err);
     })
-  })
+  }, [])
 
   return(  
     <main className="main">
@@ -47,19 +48,17 @@ function Main(props) {
       </section>
       <section className="elements">
         <ul className="elements__list">
-          <template id="element">
-          <li className="element">
-            <button type="button" className="element__trash"></button>
-            <img className="element__photo" src="#" alt="#" />
-            <div className="element__title-container">
-              <h2 className="element__title">Название</h2>
-              <div className="element__column">
-                <button type="button" className="element__like"></button> 
-                <p className="element__counter"></p>
-              </div>
-            </div>
-          </li>
-          </template>
+          {cards.map((card) => (
+            <Card 
+            key={card._id}
+            name={card.name}
+            link={card.link}
+            likes={card.likes.length}
+            onCardClick={props.onCardClick}
+            onDeleteClick={props.onDeleteClick}
+            card={card}
+            />
+          ))}
         </ul>
       </section>
     </main>
