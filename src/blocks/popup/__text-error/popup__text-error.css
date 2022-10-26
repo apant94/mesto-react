@@ -6,19 +6,19 @@
   font-weight: 400;
   font-size: 12px;
   line-height: 1.25;
-  color: #FF0000;
-  }
-  
-  .popup__text-error:first-of-type{
-    top: 127px;
-  }
+  color: #ff0000;
+}
+
+.popup__text-error:first-of-type {
+  top: 127px;
+}
 
 @media screen and (min-width: 600px) {
   .popup__text-error {
     top: 164px;
   }
 
-  .popup__text-error:first-of-type{
+  .popup__text-error:first-of-type {
     top: 107px;
   }
 }
