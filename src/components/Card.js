@@ -1,4 +1,14 @@
+import CurrentUserContext from "../contexts/CurrentUserContext";
+import React from "react";
+
 export default function Card(props) {
+  const currentUser = React.useContext(CurrentUserContext);
+  const isOwn = props.card.owner._id === currentUser._id;
+
+  const cardDeleteButtonClassName = (
+    `element__trash ${isOwn ? 'element__trash_visible' : 'element__trash_hidden'}`
+  ); 
+
   function handleCardClick() {
     props.onCardClick(props.card);
   }
@@ -11,7 +21,7 @@ export default function Card(props) {
     <li className="element">
       <button
         type="button"
-        className="element__trash"
+        className={cardDeleteButtonClassName}
         onClick={handleDeleteClick}
       ></button>
       <img
