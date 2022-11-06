@@ -1,25 +1,11 @@
 import React from "react";
+import CurrentUserContext from "../contexts/CurrentUserContext.js";
 import api from "../utils/api";
 import Card from "./Card";
 
 function Main(props) {
-  const [userName, setUserName] = React.useState("");
-  const [userDescription, setuserDescription] = React.useState("");
-  const [userAvatar, setuserAvatar] = React.useState("");
   const [cards, setCards] = React.useState([]);
-
-  React.useEffect(() => {
-    api
-      .getProfileInfo()
-      .then((data) => {
-        setUserName(data.name);
-        setuserDescription(data.about);
-        setuserAvatar(data.avatar);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  const currentUser = React.useContext(CurrentUserContext);
 
   React.useEffect(() => {
     api
@@ -38,7 +24,7 @@ function Main(props) {
         <div className="profile__avatar-wrapper">
           <div
             className="profile__avatar"
-            style={{ backgroundImage: `url(${userAvatar})` }}
+            style={{ backgroundImage: `url(${currentUser.avatar})` }}
           ></div>
           <div
             className="profile__edit-avatar"
@@ -47,14 +33,14 @@ function Main(props) {
         </div>
         <div className="profile__info">
           <div className="profile__first-line">
-            <h1 className="profile__name">{userName}</h1>
+            <h1 className="profile__name">{currentUser.name}</h1>
             <button
               type="button"
               className="profile__edit"
               onClick={props.onEditProfile}
             ></button>
           </div>
-          <p className="profile__job">{userDescription}</p>
+          <p className="profile__job">{currentUser.about}</p>
         </div>
         <button
           type="button"
