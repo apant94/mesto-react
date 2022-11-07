@@ -7,6 +7,24 @@ function Main(props) {
   const [cards, setCards] = React.useState([]);
   const currentUser = React.useContext(CurrentUserContext);
 
+  function handleCardLike(card) {
+    // Снова проверяем, есть ли уже лайк на этой карточке
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    
+    // Отправляем запрос в API и получаем обновлённые данные карточки
+    api.changeLikeCardStatus(card._id, !isLiked)
+    .then((newCard) => {
+      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+    });
+  }
+
+  function handleCardDelete(card) {
+    api.deleteCard(card._id)
+    .then(() => {
+      setCards(cards.filter(element => element !== card));
+    });
+  }
+
   React.useEffect(() => {
     api
       .getCards()
@@ -57,7 +75,8 @@ function Main(props) {
               link={card.link}
               likes={card.likes.length}
               onCardClick={props.onCardClick}
-              onDeleteClick={props.onDeleteClick}
+              onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
               card={card}
             />
           ))}
