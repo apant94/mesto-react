@@ -9,16 +9,11 @@ function EditProfilePopup(props) {
   
   function handleNameChange(e) {
     setName(e.target.value);
-  }
+  };
 
   function handleDescriptionChange(e) {
     setDescription(e.target.value);
-  }
-
-  React.useEffect(() => {
-    setName(currentUser.name);
-    setDescription(currentUser.about);
-  }, [currentUser]);
+  };
 
   function handleSubmit(e) {
     // Запрещаем браузеру переходить по адресу формы
@@ -29,7 +24,12 @@ function EditProfilePopup(props) {
       name,
       about: description,
     });
-  }
+  };
+
+  React.useEffect(() => {
+    setName(currentUser.name);
+    setDescription(currentUser.about);
+  }, [currentUser]);
 
   return (
     <PopupWithForm
