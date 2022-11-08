@@ -79,6 +79,17 @@ function App() {
     })
   }
 
+  function handleUpdateAvatar(inputValue) {
+    api.setAvatar(inputValue)
+    .then((res) => {
+      setCurrentUser(res);
+      closeAllPopups();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser} >
     <div className="page">
@@ -94,6 +105,7 @@ function App() {
       <EditAvatarPopup
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
+        onUpdateAvatar={handleUpdateAvatar}
       />
       <EditProfilePopup
         isOpen={isEditProfilePopupOpen}
