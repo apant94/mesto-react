@@ -23,16 +23,15 @@ class Api {
     }).then(this._checkStatus);
   }
 
-  async setProfileInfo(data) {
-    const res = await fetch(`${this._baseUrl}/users/me`, {
+  setProfileInfo(data) {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
         about: data.about,
       }),
-    });
-    return this._checkStatus(res);
+    }).then(this._checkStatus);
   }
 
   setAvatar(data) {

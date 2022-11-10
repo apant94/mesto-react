@@ -111,13 +111,19 @@ function App() {
     api.changeLikeCardStatus(card._id, !isLiked)
     .then((newCard) => {
       setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+    })
+    .catch((err) => {
+      console.log(err);
     });
   };
 
   function handleCardDelete(card) {
     api.deleteCard(card._id)
     .then(() => {
-      setCards(cards.filter(element => element !== card));
+      setCards(cards.filter(element => element._id !== card._id));
+    })
+    .catch((err) => {
+      console.log(err);
     });
   };
 
